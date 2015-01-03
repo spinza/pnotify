@@ -36,7 +36,7 @@ $packet->header->aa(1);
 $packet->header->rd(0);
 $packet->header->rcode('NOERROR');
 
-my $resolver = Net::DNS::Resolver->new( config_file => $configfile);
+my $resolver = Net::DNS::Resolver->new( config_file => $configfile, recurse => 1);
 
 if ($tsig_name ne '' && $tsig_key ne '') {
 	$resolver-> tsig( $tsig_name, $tsig_key );
