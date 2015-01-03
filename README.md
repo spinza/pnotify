@@ -21,8 +21,10 @@ pnotify will print either the rcode of the server response or "TIMEOUT" to STDOU
 ## Exit Code
 For a successful transaction (rcode=NOERROR), the exit code will be 0. For all other outcomes it will be 1.
 
-# Rationale
-It is sometimes useful to be able to manually send a NOTIFY packet to aDNS server. There are other tools to do this (eg nsd-notify(8)) but they are not as portable as pnotify, which is a pure Perl script with only a limited range of prerequisites.
+## Rationale
+It is sometimes useful to be able to manually send a NOTIFY packet to a DNS server. 
+There are other tools to do this (eg nsd-notify(8)) but they are not as portable as pnotify, 
+which is a pure Perl script with only a limited range of prerequisites.
 
 ## Requirements
 * Net::DNS (install with sudo apt-get install libnet-dns-perl on debian or ubuntu.)
