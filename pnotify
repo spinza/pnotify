@@ -43,15 +43,16 @@ if ($tsig_name ne '' && $tsig_key ne '') {
 };
 
 my $reply = $resolver->query($server,'A');
+my @nameservers;
 if ($reply) {
     foreach my $rr ($reply->answer) {
-        print $rr->address, "\n";
-	$resolver->nameserver($rr->address);
+	push(@nameservers, $rr->address);
     };
 } else {
-    $resolver->nameserver($server);
+    push(@nameservers, $server);
 };
-
+print @nameservers;
+$resolver->nameserver(@nameservers);
 $resolver->udp_timeout($timeout || 1);
 $resolver->srcaddr($source) if ($source ne '');
 $resolver->port($port // 53);
