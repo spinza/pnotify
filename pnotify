@@ -36,7 +36,7 @@ $packet->header->aa(1);
 $packet->header->rd(0);
 $packet->header->rcode('NOERROR');
 
-my $resolver = Net::DNS::Resolver->new( config_file => $configfile, debug => 1);
+my $resolver = Net::DNS::Resolver->new( config_file => $configfile);
 
 if ($tsig_name ne '' && $tsig_key ne '') {
 	$resolver-> tsig( $tsig_name, $tsig_key );
@@ -51,7 +51,6 @@ if ($reply) {
 } else {
     push(@nameservers, $server);
 };
-print @nameservers;
 $resolver->nameserver(@nameservers);
 $resolver->udp_timeout($timeout || 1);
 $resolver->srcaddr($source) if ($source ne '');
