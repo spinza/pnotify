@@ -42,7 +42,7 @@ if ($tsig_name ne '' && $tsig_key ne '') {
 	$resolver-> tsig( $tsig_name, $tsig_key );
 };
 
-my $reply = $resolver->query($server,'A');
+my $reply = $resolver->query($server,"A");
 my @nameservers;
 if ($reply) {
     foreach my $rr ($reply->answer) {
