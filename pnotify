@@ -46,6 +46,7 @@ my $reply = $resolver->query($server,"A");
 my @nameservers;
 if ($reply) {
     foreach my $rr ($reply->answer) {
+	next unless $rr->type eq "A";
 	push(@nameservers, $rr->address);
     };
 } else {
