@@ -36,22 +36,12 @@ $packet->header->aa(1);
 $packet->header->rd(0);
 $packet->header->rcode('NOERROR');
 
-my $resolver = Net::DNS::Resolver->new( config_file => $configfile, recurse => 1);
+my $resolver = Net::DNS::Resolver->new( config_file => $configfile);
 
 if ($tsig_name ne '' && $tsig_key ne '') {
 	$resolver-> tsig( $tsig_name, $tsig_key );
 };
 
-my $reply = $resolver->query($server,"A");
-my @nameservers;
-if ($reply) {
-    foreach my $rr ($reply->answer) {
-	next unless $rr->type eq "A";
-	push(@nameservers, $rr->address);
-    };
-} else {
-    push(@nameservers, $server);
-};
 $resolver->nameserver(@nameservers);
 $resolver->udp_timeout($timeout || 1);
 $resolver->srcaddr($source) if ($source ne '');
@@ -88,7 +78,7 @@ Options:
 	--tsig-key=KEY		Optional TSIG KEY (only HMAC-MD5 is
 				supported)
 	--source=ADDR		Use this source address (optional)
-	--configfile=CONFIGFILE Use this to specify a resolver config file.
+	--configfile=CONFIGFILE Use this to specify a resolver config file. (see http://www.net-dns.org/docs/Net/DNS/Resolver.html)
 	--help			Show this help
 
 =head1 OUTPUT
