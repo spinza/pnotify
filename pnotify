@@ -50,9 +50,11 @@ my $answer = $resolver->send($packet);
 if ($answer) {
 	print $answer->header->rcode."\n";
 	exit($answer->header->rcode ne 'NOERROR');
+	
 } else {
 	print "TIMEOUT\n";
 	exit(1);
+	
 }
 
 __END__
