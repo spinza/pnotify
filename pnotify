@@ -14,7 +14,6 @@ GetOptions(
 	'tsig-key:s'	=> \$tsig_key,
 	'timeout:i'	=> \$timeout,
 	'source:s'	=> \$source,
-	'configfile:s'	=> \$configfile,
 	'help'		=> \$help,
 ) or pod2usage(1);
 
@@ -36,7 +35,7 @@ $packet->header->aa(1);
 $packet->header->rd(0);
 $packet->header->rcode('NOERROR');
 
-my $resolver = Net::DNS::Resolver->new( config_file => $configfile);
+my $resolver = Net::DNS::Resolver->new;
 
 if ($tsig_name ne '' && $tsig_key ne '') {
 	$resolver-> tsig( $tsig_name, $tsig_key );
@@ -78,7 +77,6 @@ Options:
 	--tsig-key=KEY		Optional TSIG KEY (only HMAC-MD5 is
 				supported)
 	--source=ADDR		Use this source address (optional)
-	--configfile=CONFIGFILE Use this to specify a resolver config file. (see http://www.net-dns.org/docs/Net/DNS/Resolver.html)
 	--help			Show this help
 
 =head1 OUTPUT
